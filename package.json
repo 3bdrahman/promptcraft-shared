@@ -1,0 +1,24 @@
+{
+  "name": "@promptcraft/shared",
+  "version": "1.0.0",
+  "description": "Shared configuration and structures for PromptCraft extension and web app",
+  "main": "src/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./structures": "./src/structures/index.js",
+    "./constants": "./src/constants/index.js",
+    "./validators": "./src/validators/index.js",
+    "./helpers": "./src/helpers/index.js"
+  },
+  "scripts": {
+    "test": "echo \"No tests yet\" && exit 0"
+  },
+  "keywords": [
+    "promptcraft",
+    "prompt-engineering",
+    "shared-config"
+  ],
+  "author": "PromptCraft Team",
+  "license": "MIT"
+}
