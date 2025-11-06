@@ -1,0 +1,10 @@
+{
+  "name": "promptcraft-api",
+  "version": "2.0.0",
+  "description": "PromptCraft Template API - Clean Architecture",
+  "type": "module",
+  "main": "templates.js",
+  "dependencies": {
+    "pg": "^8.11.3"
+  }
+}

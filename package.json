@@ -9,7 +9,8 @@
     "./structures": "./src/structures/index.js",
     "./constants": "./src/constants/index.js",
     "./validators": "./src/validators/index.js",
-    "./helpers": "./src/helpers/index.js"
+    "./helpers": "./src/helpers/index.js",
+    "./api": "./api/router.js"
   },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0"
@@ -17,8 +18,15 @@
   "keywords": [
     "promptcraft",
     "prompt-engineering",
-    "shared-config"
+    "shared-config",
+    "api"
   ],
   "author": "PromptCraft Team",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "pg": "^8.11.3",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^3.0.2",
+    "resend": "^6.2.2"
+  }
 }

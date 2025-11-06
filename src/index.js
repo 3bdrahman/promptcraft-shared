@@ -16,3 +16,12 @@ export * from './helpers/index.js';
 
 // Package version
 export const VERSION = '1.0.0';
+
+/**
+ * API Router
+ *
+ * The API logic is available at './api/router.js'
+ * Import it separately: import handler from '@promptcraft/shared/api'
+ *
+ * See api/README.md for complete API documentation.
+ */
