@@ -3,8 +3,11 @@
   "version": "2.0.0",
   "description": "PromptCraft Template API - Clean Architecture",
   "type": "module",
-  "main": "templates.js",
+  "main": "router.js",
   "dependencies": {
-    "pg": "^8.11.3"
+    "pg": "^8.11.3",
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^3.0.2",
+    "resend": "^6.2.2"
   }
 }

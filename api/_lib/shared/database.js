@@ -27,6 +27,10 @@ export const db = {
   connect: async () => {
     const pool = getPool();
     return await pool.connect();
+  },
+  getClient: async () => {
+    const pool = getPool();
+    return await pool.connect();
   }
 };
 

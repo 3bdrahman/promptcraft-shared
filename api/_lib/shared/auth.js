@@ -119,7 +119,7 @@ export const requireAuth = async (req, res) => {
   // Fetch full user record from database using email
   try {
     const userResult = await db.query(
-      'SELECT id, email, username, verified, created_at FROM users WHERE email = $1',
+      'SELECT id, email, username, email_verified, created_at FROM users WHERE email = $1',
       [tokenUser.email]
     );
     

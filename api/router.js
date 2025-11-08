@@ -16,6 +16,7 @@ import authHandler from './_lib/endpoints/auth-by-email.js';
 import subscriptionHandler from './_lib/endpoints/subscription.js';
 import analyticsHandler from './_lib/endpoints/analytics.js';
 import subscriptionsHandler from './_lib/endpoints/subscriptions.js';
+import contextsRouter from './_lib/endpoints/contexts/index.js';
 
 // Enterprise auth endpoints
 import signupHandler from './_lib/endpoints/auth/signup.js';
@@ -25,6 +26,30 @@ import logoutHandler from './_lib/endpoints/auth/logout.js';
 import logoutAllHandler from './_lib/endpoints/auth/logout-all.js';
 import verifyPinHandler from './_lib/endpoints/auth/verify-pin.js';
 import resendPinHandler from './_lib/endpoints/auth/resend-pin.js';
+
+// Teams endpoints
+import {
+  getUserTeams,
+  getTeam,
+  createTeam,
+  updateTeam,
+  deleteTeam
+} from './_lib/endpoints/teams/index.js';
+
+import {
+  getTeamMembers,
+  updateTeamMember,
+  removeTeamMember
+} from './_lib/endpoints/teams/members.js';
+
+import {
+  getTeamInvitations,
+  createTeamInvitation,
+  getInvitationByToken,
+  acceptInvitation,
+  rejectInvitation,
+  cancelInvitation
+} from './_lib/endpoints/teams/invitations.js';
 
 /**
  * Main API router
@@ -74,6 +99,67 @@ export default async function handler(req, res) {
       return await resendPinHandler(req, res);
     }
 
+    // Teams endpoints
+    if (path === '/api/teams' && method === 'GET') {
+      return await getUserTeams(req, res);
+    } else if (path === '/api/teams' && method === 'POST') {
+      return await createTeam(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+$/) && method === 'GET') {
+      req.params = { id: path.split('/')[3] };
+      return await getTeam(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+$/) && method === 'PUT') {
+      req.params = { id: path.split('/')[3] };
+      return await updateTeam(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+$/) && method === 'DELETE') {
+      req.params = { id: path.split('/')[3] };
+      return await deleteTeam(req, res);
+    }
+
+    // Team members endpoints
+    else if (path.match(/^\/api\/teams\/[^/]+\/members$/) && method === 'GET') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3] };
+      return await getTeamMembers(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+\/members\/[^/]+$/) && method === 'PUT') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3], memberId: parts[5] };
+      return await updateTeamMember(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+\/members\/[^/]+$/) && method === 'DELETE') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3], memberId: parts[5] };
+      return await removeTeamMember(req, res);
+    }
+
+    // Team invitations endpoints
+    else if (path.match(/^\/api\/teams\/[^/]+\/invitations$/) && method === 'GET') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3] };
+      return await getTeamInvitations(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+\/invitations$/) && method === 'POST') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3] };
+      return await createTeamInvitation(req, res);
+    } else if (path.match(/^\/api\/teams\/[^/]+\/invitations\/[^/]+$/) && method === 'DELETE') {
+      const parts = path.split('/');
+      req.params = { teamId: parts[3], invitationId: parts[5] };
+      return await cancelInvitation(req, res);
+    }
+
+    // Public invitation endpoints (no team in path)
+    else if (path.match(/^\/api\/invitations\/[^/]+$/) && method === 'GET') {
+      const parts = path.split('/');
+      req.params = { token: parts[3] };
+      return await getInvitationByToken(req, res);
+    } else if (path.match(/^\/api\/invitations\/[^/]+\/accept$/) && method === 'POST') {
+      const parts = path.split('/');
+      req.params = { token: parts[3] };
+      return await acceptInvitation(req, res);
+    } else if (path.match(/^\/api\/invitations\/[^/]+\/reject$/) && method === 'POST') {
+      const parts = path.split('/');
+      req.params = { token: parts[3] };
+      return await rejectInvitation(req, res);
+    }
+
     // Analytics endpoints
     if (path.startsWith('/analytics')) {
       return await analyticsHandler(req, res);
@@ -88,7 +174,20 @@ export default async function handler(req, res) {
     if (path.startsWith('/api/templates')) {
       return await templatesHandler(req, res);
     } else if (path.startsWith('/api/contexts/layers')) {
+      // Check if this is an advanced context endpoint
+      const pathParts = path.split('/').filter(Boolean);
+
+      // Advanced endpoints (tree, children, versions, etc.)
+      if (pathParts.length > 4) {
+        return await contextsRouter(req, res, pathParts);
+      }
+
+      // Basic CRUD operations
       return await layersHandler(req, res);
+    } else if (path.startsWith('/api/contexts/')) {
+      // New context endpoints (relationships, search, etc.)
+      const pathParts = path.split('/').filter(Boolean);
+      return await contextsRouter(req, res, pathParts);
     } else if (path.startsWith('/api/contexts/profiles')) {
       return await profilesHandler(req, res);
     } else if (path.startsWith('/api/contexts/combinations')) {
