@@ -51,6 +51,11 @@ import {
   cancelInvitation
 } from './_lib/endpoints/teams/invitations.js';
 
+// AI endpoints
+import aiGenerateHandler from './ai/generate.js';
+import aiEmbeddingsHandler from './ai/embeddings.js';
+import aiProvidersHandler from './ai/providers.js';
+
 /**
  * Main API router
  */
@@ -198,6 +203,12 @@ export default async function handler(req, res) {
       return await authHandler(req, res);
     } else if (path.startsWith('/api/user/subscription')) {
       return await subscriptionHandler(req, res);
+    } else if (path === '/api/ai/generate') {
+      return await aiGenerateHandler(req, res);
+    } else if (path === '/api/ai/embeddings') {
+      return await aiEmbeddingsHandler(req, res);
+    } else if (path === '/api/ai/providers') {
+      return await aiProvidersHandler(req, res);
     } else {
       return res.status(404).json(error('Endpoint not found', 404));
     }
