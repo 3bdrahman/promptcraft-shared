@@ -3,7 +3,7 @@
  * Returns available providers and their configuration status
  */
 
-import { AI_PROVIDERS, PROVIDER_CONFIGS, MODEL_COSTS } from '../../lib/ai/config.js';
+import { AI_PROVIDERS, PROVIDER_CONFIGS, MODEL_COSTS } from '../_lib/ai/config.js';
 
 // CORS headers
 const corsHeaders = {

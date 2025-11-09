@@ -4,11 +4,11 @@
  * Used by both web app and extension
  */
 
-import { AI_PROVIDERS, PROVIDER_CONFIGS } from '../../lib/ai/config.js';
-import { generateOpenAI } from '../../lib/ai/providers/openai.js';
-import { generateAnthropic } from '../../lib/ai/providers/anthropic.js';
-import { generateGoogle } from '../../lib/ai/providers/google.js';
-import { generateHuggingFace } from '../../lib/ai/providers/huggingface.js';
+import { AI_PROVIDERS, PROVIDER_CONFIGS } from '../_lib/ai/config.js';
+import { generateOpenAI } from '../_lib/ai/providers/openai.js';
+import { generateAnthropic } from '../_lib/ai/providers/anthropic.js';
+import { generateGoogle } from '../_lib/ai/providers/google.js';
+import { generateHuggingFace } from '../_lib/ai/providers/huggingface.js';
 
 // CORS headers
 const corsHeaders = {
