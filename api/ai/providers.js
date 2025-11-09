@@ -147,15 +147,15 @@ const MODELS_INFO = {
 };
 
 export default async function handler(req, res) {
+  // Set CORS headers first (before any response)
+  Object.entries(corsHeaders).forEach(([key, value]) => {
+    res.setHeader(key, value);
+  });
+
   // Handle CORS preflight
   if (req.method === 'OPTIONS') {
     return res.status(200).json({ ok: true });
   }
-
-  // Set CORS headers
-  Object.entries(corsHeaders).forEach(([key, value]) => {
-    res.setHeader(key, value);
-  });
 
   try {
     const providers = Object.entries(PROVIDER_CONFIGS).map(([id, config]) => {
