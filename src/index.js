@@ -14,14 +14,33 @@ export * from './structures/index.js';
 // Export all helpers
 export * from './helpers/index.js';
 
+// Export API client and utilities
+export * from './api/index.js';
+
 // Package version
 export const VERSION = '1.0.0';
 
 /**
- * API Router
+ * API Usage
  *
- * The API logic is available at './api/router.js'
- * Import it separately: import handler from '@promptcraft/shared/api'
+ * The shared package now includes a complete API client library:
  *
- * See api/README.md for complete API documentation.
+ * @example
+ * import api from '@promptcraft/shared/api';
+ *
+ * // Configure client
+ * api.client.config.setBaseUrl('https://api.promptcraft.app');
+ * api.client.config.setTokens(accessToken, refreshToken);
+ *
+ * // Use services
+ * const templates = await api.services.templates.getTemplates();
+ * const user = await api.services.auth.login({ email, password });
+ *
+ * @example
+ * // Or use individual services
+ * import { templates } from '@promptcraft/shared/api';
+ * const myTemplates = await templates.getMyTemplates();
+ *
+ * The API server logic is available at '../api/router.js'
+ * Import it separately: import handler from '@promptcraft/shared/api/server'
  */
