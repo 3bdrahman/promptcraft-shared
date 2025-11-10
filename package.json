@@ -1,7 +1,7 @@
 {
   "name": "@promptcraft/shared",
   "version": "1.0.0",
-  "description": "Shared configuration and structures for PromptCraft extension and web app",
+  "description": "Shared configuration, constants, structures, and utilities for PromptCraft projects",
   "main": "src/index.js",
   "type": "module",
   "exports": {
@@ -9,8 +9,7 @@
     "./structures": "./src/structures/index.js",
     "./constants": "./src/constants/index.js",
     "./validators": "./src/validators/index.js",
-    "./helpers": "./src/helpers/index.js",
-    "./api": "./api/router.js"
+    "./helpers": "./src/helpers/index.js"
   },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0"
@@ -19,18 +18,9 @@
     "promptcraft",
     "prompt-engineering",
     "shared-config",
-    "api"
+    "shared-library"
   ],
   "author": "PromptCraft Team",
   "license": "MIT",
-  "dependencies": {
-    "pg": "^8.11.3",
-    "jsonwebtoken": "^9.0.2",
-    "bcryptjs": "^3.0.2",
-    "resend": "^6.2.2",
-    "openai": "^4.20.0",
-    "@anthropic-ai/sdk": "^0.9.0",
-    "@google/generative-ai": "^0.1.3",
-    "@huggingface/inference": "^2.6.0"
-  }
+  "dependencies": {}
 }

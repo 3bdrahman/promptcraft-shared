@@ -1,11 +1,11 @@
 # @promptcraft/shared
 
-**Single Source of Truth** for PromptCraft's data structures, constants, and business logic.
+**Pure Shared Library** for PromptCraft's data structures, constants, validators, and utilities.
 
-This package is shared between:
+This zero-dependency package is shared between:
 - **PromptCraft Extension** (Chrome extension)
 - **PromptCraft Web App** (React web application)
-- **PromptCraft API** (Vercel serverless functions)
+- **PromptCraft API** (Express API server)
 
 ## Installation
 
