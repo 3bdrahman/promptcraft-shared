@@ -30,17 +30,43 @@ import { TEMPLATE_CATEGORIES, VARIABLE_TYPES } from '@promptcraft/shared/constan
 import { isValidCategory, combineContexts } from '@promptcraft/shared/helpers';
 ```
 
-### API
+### API Client (NEW!)
+
+The shared package now includes a complete API client library for consuming the API:
 
 ```javascript
-// Import the API router
-import handler from '@promptcraft/shared/api';
+import api from '@promptcraft/shared/api';
+
+// Configure the client (once at app startup)
+api.client.config.setBaseUrl('https://api.promptcraft.app');
+api.client.config.setTokens(accessToken, refreshToken);
+
+// Use the API services
+const templates = await api.services.templates.getTemplates();
+const user = await api.services.auth.login({ email, password });
+const layers = await api.services.contexts.getLayers();
+```
+
+**Features:**
+- ✅ Automatic JWT token refresh
+- ✅ Type-safe responses (JSDoc/TypeScript)
+- ✅ Centralized error handling
+- ✅ Request/response validation
+- ✅ Standardized API routes
+
+See [API_CLIENT_GUIDE.md](./API_CLIENT_GUIDE.md) for complete client usage guide.
+
+### API Server
+
+```javascript
+// Import the API server router
+import handler from '@promptcraft/shared/api/server';
 
 // Use with Express, Next.js, or Vercel
 app.all('/api/*', handler);
 ```
 
-See [api/README.md](./api/README.md) for complete API documentation.
+See [api/README.md](./api/README.md) for server API documentation.
 
 ## Structure
 
@@ -64,15 +90,28 @@ src/
 │   ├── category.js   # Category navigation helpers
 │   ├── context.js    # Context combination logic
 │   └── index.js
+├── api/              # API client library (NEW!)
+│   ├── client.js     # HTTP client with token refresh
+│   ├── routes.js     # API route constants
+│   ├── types.js      # JSDoc type definitions
+│   ├── validators.js # Request/response validators
+│   ├── services/     # API service modules
+│   │   ├── auth.js       # Authentication services
+│   │   ├── templates.js  # Template services
+│   │   ├── contexts.js   # Context services
+│   │   ├── teams.js      # Team services
+│   │   └── ai.js         # AI services
+│   ├── index.js      # Main API client export
+│   └── README.md     # API client documentation
 └── index.js          # Main entry point
 
-api/                  # Complete API implementation
+api/                  # API server implementation
 ├── router.js         # Main serverless function handler
 ├── _lib/
 │   ├── auth/         # JWT, password hashing, middleware
 │   ├── endpoints/    # API endpoint handlers
 │   └── shared/       # Database, responses, utilities
-└── README.md         # Detailed API documentation
+└── README.md         # Server API documentation
 ```
 
 ## Design Principles
@@ -104,6 +143,19 @@ See [api/README.md](./api/README.md) for detailed API documentation.
 
 ## Version History
 
+### 1.1.0 (API Client Library)
+- **NEW: Complete API client library** for consuming the API
+  - HTTP client with automatic JWT token refresh
+  - Centralized route constants and URL builders
+  - Comprehensive JSDoc type definitions
+  - Request/response validators
+  - High-level service modules (auth, templates, contexts, teams, AI)
+  - Global error handling and interceptors
+  - Full documentation and integration guides
+- Package exports updated for granular module imports
+- Fixes for API-related errors (404s, null responses)
+- Migration guide for web app and extension
+
 ### 1.0.0 (Initial Release)
 - Template structure and validation
 - Context layer structure and validation
@@ -112,7 +164,7 @@ See [api/README.md](./api/README.md) for detailed API documentation.
 - Variable type definitions
 - Subscription limits
 - Analysis and optimization structures
-- **Complete API implementation** (migrated from promptcraft repository)
+- **Complete API server implementation**
   - Authentication system (JWT, password hashing)
   - Template endpoints
   - Context management endpoints

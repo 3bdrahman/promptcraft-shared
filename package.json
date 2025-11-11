@@ -9,7 +9,23 @@
     "./structures": "./src/structures/index.js",
     "./constants": "./src/constants/index.js",
     "./validators": "./src/validators/index.js",
+<<<<<<< HEAD
     "./helpers": "./src/helpers/index.js"
+=======
+    "./helpers": "./src/helpers/index.js",
+    "./api": "./src/api/index.js",
+    "./api/client": "./src/api/client.js",
+    "./api/routes": "./src/api/routes.js",
+    "./api/types": "./src/api/types.js",
+    "./api/validators": "./src/api/validators.js",
+    "./api/services": "./src/api/services/index.js",
+    "./api/services/auth": "./src/api/services/auth.js",
+    "./api/services/templates": "./src/api/services/templates.js",
+    "./api/services/contexts": "./src/api/services/contexts.js",
+    "./api/services/teams": "./src/api/services/teams.js",
+    "./api/services/ai": "./src/api/services/ai.js",
+    "./api/server": "./api/router.js"
+>>>>>>> 7bceb012ccca7b01b3a05310d319feda6a538344
   },
   "scripts": {
     "test": "echo \"No tests yet\" && exit 0"
