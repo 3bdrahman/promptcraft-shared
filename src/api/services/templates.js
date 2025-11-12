@@ -116,6 +116,37 @@ export async function toggleFavorite(id) {
 }
 
 /**
+ * Get team templates
+ * @param {string} teamId - Team ID
+ * @returns {Promise<import('../types.js').TemplateListResponse>}
+ */
+export async function getTeamTemplates(teamId) {
+  const response = await http.get(`/templates/team/${teamId}`);
+  return response;
+}
+
+/**
+ * Share template with team
+ * @param {string} templateId - Template ID
+ * @param {string} teamId - Team ID to share with
+ * @returns {Promise<import('../types.js').Template>}
+ */
+export async function shareTemplateWithTeam(templateId, teamId) {
+  const response = await http.post(`/templates/${templateId}/share`, { team_id: teamId });
+  return response.data;
+}
+
+/**
+ * Unshare template (make private)
+ * @param {string} templateId - Template ID
+ * @returns {Promise<import('../types.js').Template>}
+ */
+export async function unshareTemplate(templateId) {
+  const response = await http.post(`/templates/${templateId}/unshare`);
+  return response.data;
+}
+
+/**
  * Get database schema (debug endpoint)
  * @returns {Promise<Object>}
  */
@@ -133,5 +164,8 @@ export default {
   updateTemplate,
   deleteTemplate,
   toggleFavorite,
+  getTeamTemplates,
+  shareTemplateWithTeam,
+  unshareTemplate,
   getSchema,
 };
